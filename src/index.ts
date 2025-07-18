@@ -1,4 +1,4 @@
-import { yoga } from '@/src/yoga';
+import { yoga } from './yoga';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 

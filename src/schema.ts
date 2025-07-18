@@ -1,3 +1,3 @@
-import { builder } from '@/src/builder';
+import { builder } from './builder';
 
 export const schema = builder.toSchema();

@@ -1,4 +1,4 @@
-import { schema } from '@/src/schema';
+import { schema } from './schema';
 import { createYoga } from 'graphql-yoga';
 import { printSchema, lexicographicSortSchema } from 'graphql';
 import { writeFileSync } from 'fs';

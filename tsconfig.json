@@ -6,14 +6,9 @@
     "strict": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "jsxImportSource": "hono/jsx",
-    "outDir": "./dist",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "outDir": "./dist"
   },
   "exclude": ["node_modules"]
 }
