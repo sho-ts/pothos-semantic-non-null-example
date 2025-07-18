@@ -1,0 +1,28 @@
+{
+  "name": "sd-deploy-report-graphql",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "1.14.4",
+    "@pothos/core": "4.7.0",
+    "@pothos/plugin-relay": "4.5.0",
+    "@types/jsonwebtoken": "9.0.10",
+    "graphql": "16.11.0",
+    "graphql-yoga": "5.13.5",
+    "hono": "4.7.11"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "esbuild": "0.25.5",
+    "tsx": "4.7.1",
+    "typescript": "5.8.3"
+  },
+  "volta": {
+    "node": "22.12.0",
+    "pnpm": "10.13.1"
+  },
+  "packageManager": "pnpm@10.13.1"
+}
