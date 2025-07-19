@@ -6,5 +6,9 @@ declare global {
     export interface Plugins<Types extends SchemaTypes> {
       semanticNonNull: SemanticNonNullPlugin<Types>;
     }
+
+    export interface FieldOptions {
+      semanticNonNull?: boolean;
+    }
   }
 }
