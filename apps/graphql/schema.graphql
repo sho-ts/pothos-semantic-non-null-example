@@ -4,10 +4,16 @@ schema {
 
 directive @semanticNonNull(levels: [Int] = [0]) on FIELD_DEFINITION
 
-type Query {
-  user: User @semanticNonNull
+interface Node {
+  id: ID!
 }
 
-type User {
+type Query {
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+}
+
+type User implements Node {
+  id: ID!
   name: String @semanticNonNull
 }

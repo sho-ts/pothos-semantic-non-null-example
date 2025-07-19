@@ -1,33 +1,28 @@
 import SchemaBuilder from '@pothos/core';
 import DirectivePlugin from '@pothos/plugin-directives';
+import RelayPlugin from '@pothos/plugin-relay';
 import SemanticNonNullPlugin from './plugin-semantic-non-null';
 
 export const builder = new SchemaBuilder({
-  plugins: [SemanticNonNullPlugin, DirectivePlugin],
+  plugins: [RelayPlugin, DirectivePlugin, SemanticNonNullPlugin],
 });
 
 const User = builder.objectRef<{
   name: string | undefined;
 }>('User');
 
-User.implement({
+builder.node(User, {
+  id: {
+    resolve: () => `User:1`,
+  },
   fields: (t) => ({
     name: t.exposeString('name', {
       semanticNonNull: true,
     }),
   }),
-});
-
-builder.queryType({
-  fields: (t) => ({
-    user: t.field({
-      type: User,
-      semanticNonNull: true,
-      resolve: () => ({
-        name: undefined,
-      }),
-    }),
+  loadOne: async () => ({
+    name: undefined,
   }),
 });
 
-// builder.mutationType({});
+builder.queryType();
