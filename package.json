@@ -6,8 +6,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@graphql-tools/utils": "10.9.0",
     "@hono/node-server": "1.14.4",
     "@pothos/core": "4.7.0",
+    "@pothos/plugin-directives": "4.2.4",
     "graphql": "16.11.0",
     "graphql-yoga": "5.13.5",
     "hono": "4.7.11"
