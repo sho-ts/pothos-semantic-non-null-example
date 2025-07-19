@@ -3,17 +3,13 @@ import SchemaBuilder, {
   type PothosOutputFieldConfig,
   type SchemaTypes,
 } from '@pothos/core';
+import type { SemanticNonNullArgs } from './types';
 
 const name = 'semanticNonNull' as const;
 
 export default name;
 
-export type SemanticNonNullArgs =
-  | boolean
-  | {
-      levels: number[];
-    };
-
+// semanticNonNull: trueなどの場合はデフォルト値を設定できるようにargsの変換関数を用意
 const transformDirective = (args: SemanticNonNullArgs) => {
   if (typeof args === 'boolean') return { name, args: {} };
 
@@ -27,12 +23,14 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
     const semanticNonNullArgs = fieldConfig.pothosOptions.semanticNonNull;
 
     if (semanticNonNullArgs) {
+      // 他のdirectivesが指定されていない場合は配列ごと追加する
       if (!Array.isArray(fieldConfig.extensions?.directives)) {
         fieldConfig.extensions = {
           ...fieldConfig.extensions,
           directives: [transformDirective(semanticNonNullArgs)],
         };
       } else {
+        // 既存のdirectivesがある場合はpushする
         fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullArgs));
       }
     }

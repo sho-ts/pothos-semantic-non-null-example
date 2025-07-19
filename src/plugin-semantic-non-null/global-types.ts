@@ -1,5 +1,6 @@
 import type { SchemaTypes } from '@pothos/core';
 import type { SemanticNonNullPlugin } from '.';
+import type { SemanticNonNullArgs } from './types';
 
 declare global {
   export namespace PothosSchemaTypes {
@@ -8,9 +9,7 @@ declare global {
     }
 
     export interface FieldOptions {
-      semanticNonNull?: boolean | {
-        levels: number[];
-      }
+      semanticNonNull?: SemanticNonNullArgs;
     }
   }
 }
