@@ -7,7 +7,7 @@ export const builder = new SchemaBuilder({
 });
 
 const User = builder.objectRef<{
-  name: string | undefined
+  name: string | undefined;
 }>('User');
 
 User.implement({
