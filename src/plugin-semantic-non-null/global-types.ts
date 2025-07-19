@@ -8,7 +8,9 @@ declare global {
     }
 
     export interface FieldOptions {
-      semanticNonNull?: boolean;
+      semanticNonNull?: boolean | {
+        levels: number[];
+      }
     }
   }
 }

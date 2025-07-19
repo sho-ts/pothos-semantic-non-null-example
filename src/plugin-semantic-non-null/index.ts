@@ -8,25 +8,40 @@ const pluginName = 'semanticNonNull' as const;
 
 export default pluginName;
 
-const directive = {
-  name: 'semanticNonNull',
-  args: {},
+export type SemanticNonNullOptions =
+  | boolean
+  | {
+      levels: number[];
+    };
+
+const transformDirective = (options: SemanticNonNullOptions) => {
+  if (typeof options === 'boolean') {
+    return {
+      name: 'semanticNonNull',
+      args: {},
+    };
+  }
+
+  return {
+    name: 'semanticNonNull',
+    args: options,
+  };
 };
 
 export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin<Types> {
   override onOutputFieldConfig(
     fieldConfig: PothosOutputFieldConfig<Types>
   ): PothosOutputFieldConfig<Types> | null {
-    const option = fieldConfig.pothosOptions.semanticNonNull;
+    const semanticNonNullOptions = fieldConfig.pothosOptions.semanticNonNull;
 
-    if (option) {
+    if (semanticNonNullOptions) {
       if (!Array.isArray(fieldConfig.extensions?.directives)) {
         fieldConfig.extensions = {
           ...fieldConfig.extensions,
-          directives: [directive],
+          directives: [transformDirective(semanticNonNullOptions)],
         };
       } else {
-        fieldConfig.extensions?.directives.push(directive);
+        fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullOptions));
       }
     }
 
