@@ -1,5 +1,5 @@
 {
-  "name": "sd-deploy-report-graphql",
+  "name": "graphql",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
