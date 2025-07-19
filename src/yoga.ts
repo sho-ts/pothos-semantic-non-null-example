@@ -1,9 +1,12 @@
 import { schema } from './schema';
 import { createYoga } from 'graphql-yoga';
-import { printSchema, lexicographicSortSchema } from 'graphql';
+import { lexicographicSortSchema } from 'graphql';
 import { writeFileSync } from 'fs';
+import { printSchemaWithDirectives } from '@graphql-tools/utils'
 
-writeFileSync('./schema.graphql', printSchema(lexicographicSortSchema(schema)));
+writeFileSync('./schema.graphql', printSchemaWithDirectives(lexicographicSortSchema(schema), {
+  pathToDirectivesInExtensions: ['semanticNonNull'],
+}));
 
 export const yoga = createYoga({
   graphqlEndpoint: '/',
