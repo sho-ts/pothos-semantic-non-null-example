@@ -1,17 +1,19 @@
-import { type UserQuery } from './__generated__/UserQuery.graphql';
-import { useLazyLoadQuery, graphql } from 'react-relay';
+import { graphql, useFragment } from 'react-relay';
+import type { UserFragment$key } from './__generated__/UserFragment.graphql';
 
-export const User = () => {
-  const data = useLazyLoadQuery<UserQuery>(
+type Props = {
+  user: UserFragment$key;
+};
+
+export const User = ({ user }: Props) => {
+  const data = useFragment(
     graphql`
-      query UserQuery @throwOnFieldError {
-        user {
-          name
-        }
+      fragment UserFragment on User @throwOnFieldError {
+        name
       }
     `,
-    {}
+    user
   );
 
-  return <div>{data.user.name}</div>;
+  return <div>{data.name}</div>;
 };
