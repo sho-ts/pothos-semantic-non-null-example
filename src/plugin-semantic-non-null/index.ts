@@ -4,44 +4,36 @@ import SchemaBuilder, {
   type SchemaTypes,
 } from '@pothos/core';
 
-const pluginName = 'semanticNonNull' as const;
+const name = 'semanticNonNull' as const;
 
-export default pluginName;
+export default name;
 
-export type SemanticNonNullOptions =
+export type SemanticNonNullArgs =
   | boolean
   | {
       levels: number[];
     };
 
-const transformDirective = (options: SemanticNonNullOptions) => {
-  if (typeof options === 'boolean') {
-    return {
-      name: 'semanticNonNull',
-      args: {},
-    };
-  }
+const transformDirective = (args: SemanticNonNullArgs) => {
+  if (typeof args === 'boolean') return { name, args: {} };
 
-  return {
-    name: 'semanticNonNull',
-    args: options,
-  };
+  return { name, args };
 };
 
 export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin<Types> {
   override onOutputFieldConfig(
     fieldConfig: PothosOutputFieldConfig<Types>
   ): PothosOutputFieldConfig<Types> | null {
-    const semanticNonNullOptions = fieldConfig.pothosOptions.semanticNonNull;
+    const semanticNonNullArgs = fieldConfig.pothosOptions.semanticNonNull;
 
-    if (semanticNonNullOptions) {
+    if (semanticNonNullArgs) {
       if (!Array.isArray(fieldConfig.extensions?.directives)) {
         fieldConfig.extensions = {
           ...fieldConfig.extensions,
-          directives: [transformDirective(semanticNonNullOptions)],
+          directives: [transformDirective(semanticNonNullArgs)],
         };
       } else {
-        fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullOptions));
+        fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullArgs));
       }
     }
 
@@ -49,4 +41,4 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
   }
 }
 
-SchemaBuilder.registerPlugin(pluginName, SemanticNonNullPlugin);
+SchemaBuilder.registerPlugin(name, SemanticNonNullPlugin);
