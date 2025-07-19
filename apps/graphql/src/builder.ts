@@ -22,6 +22,7 @@ builder.queryType({
   fields: (t) => ({
     user: t.field({
       type: User,
+      semanticNonNull: true,
       resolve: () => ({
         name: undefined,
       }),

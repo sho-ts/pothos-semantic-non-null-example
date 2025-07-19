@@ -5,7 +5,7 @@ schema {
 directive @semanticNonNull(levels: [Int] = [0]) on FIELD_DEFINITION
 
 type Query {
-  user: User
+  user: User @semanticNonNull
 }
 
 type User {
