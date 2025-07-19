@@ -5,16 +5,16 @@ import { User } from './User';
 export const UserPage = () => {
   const data = useLazyLoadQuery<UserPageQuery>(
     graphql`
-      query UserPageQuery @throwOnFieldError {
-        user {
-          ...UserFragment
+      query UserPageQuery($id: ID!) {
+        node(id: $id) @required(action: THROW) {
+          ... on User {
+            ...UserFragment
+          }
         }
       }
     `,
-    {}
+    { id: btoa('User:1') }
   );
 
-  return  (
-    <User user={data.user} />
-  )
+  return <User user={data.node} />;
 };
