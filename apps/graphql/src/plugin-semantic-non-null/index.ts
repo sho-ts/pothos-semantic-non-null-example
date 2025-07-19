@@ -22,17 +22,17 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
   ): PothosOutputFieldConfig<Types> | null {
     const semanticNonNullArgs = fieldConfig.pothosOptions.semanticNonNull;
 
-    if (semanticNonNullArgs) {
-      // 他のdirectivesが指定されていない場合は配列ごと追加する
-      if (!Array.isArray(fieldConfig.extensions?.directives)) {
-        fieldConfig.extensions = {
-          ...fieldConfig.extensions,
-          directives: [transformDirective(semanticNonNullArgs)],
-        };
-      } else {
-        // 既存のdirectivesがある場合はpushする
-        fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullArgs));
-      }
+    if (!semanticNonNullArgs) return fieldConfig;
+
+    // 他のdirectivesが指定されていない場合は配列ごと追加する
+    if (!Array.isArray(fieldConfig.extensions?.directives)) {
+      fieldConfig.extensions = {
+        ...fieldConfig.extensions,
+        directives: [transformDirective(semanticNonNullArgs)],
+      };
+    } else {
+      // 既存のdirectivesがある場合はpushする
+      fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullArgs));
     }
 
     return fieldConfig;
