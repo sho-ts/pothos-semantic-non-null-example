@@ -1,0 +1,12 @@
+{
+  "root": "../",
+  "sources": {
+    "apps/web": "web"
+  },
+  "projects": {
+    "web": {
+      "language": "typescript",
+      "schema": "apps/graphql/schema.graphql"
+    }
+  }
+}
