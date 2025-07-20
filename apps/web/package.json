@@ -13,6 +13,7 @@
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-error-boundary": "^6.0.0",
     "react-relay": "^20.0.0",
     "relay-runtime": "^20.0.0"
   },

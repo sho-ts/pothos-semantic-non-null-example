@@ -15,5 +15,5 @@ export const User = ({ user }: Props) => {
     user
   );
 
-  return <div>{data.name}</div>;
+  return <div>User: {data.name}</div>;
 };
