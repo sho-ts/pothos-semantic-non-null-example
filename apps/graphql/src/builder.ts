@@ -16,8 +16,13 @@ builder.node(User, {
     resolve: () => `User:1`,
   },
   fields: (t) => ({
-    name: t.exposeString('name', {
+    name: t.field({
+      type: 'String',
       semanticNonNull: true,
+      resolve: () => {
+        // 動作検証のためにダミーのエラーをthrow
+        throw new Error('User name is not available');
+      },
     }),
   }),
   loadOne: async () => ({
