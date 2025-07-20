@@ -6,6 +6,8 @@ settings:
 
 importers:
 
+  .: {}
+
   apps/graphql:
     dependencies:
       '@graphql-tools/utils':
