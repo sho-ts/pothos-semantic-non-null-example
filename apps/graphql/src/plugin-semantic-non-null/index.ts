@@ -9,13 +9,6 @@ const name = 'semanticNonNull' as const;
 
 export default name;
 
-// semanticNonNull: trueなどの場合はデフォルト値を設定できるようにargsの変換関数を用意
-const transformDirective = (args: SemanticNonNullArgs) => {
-  if (typeof args === 'boolean') return { name, args: {} };
-
-  return { name, args };
-};
-
 export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin<Types> {
   override onOutputFieldConfig(
     fieldConfig: PothosOutputFieldConfig<Types>
@@ -28,15 +21,22 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
     if (!Array.isArray(fieldConfig.extensions?.directives)) {
       fieldConfig.extensions = {
         ...fieldConfig.extensions,
-        directives: [transformDirective(semanticNonNullArgs)],
+        directives: [this.transformDirective(semanticNonNullArgs)],
       };
     } else {
       // 既存のdirectivesがある場合はpushする
-      fieldConfig.extensions?.directives.push(transformDirective(semanticNonNullArgs));
+      fieldConfig.extensions?.directives.push(this.transformDirective(semanticNonNullArgs));
     }
 
     return fieldConfig;
   }
+
+  // semanticNonNull: trueなどの場合はデフォルト値を設定できるようにargsの変換関数を用意
+  private transformDirective = (args: SemanticNonNullArgs) => {
+    if (typeof args === 'boolean') return { name, args: {} };
+
+    return { name, args };
+  };
 }
 
 SchemaBuilder.registerPlugin(name, SemanticNonNullPlugin);
