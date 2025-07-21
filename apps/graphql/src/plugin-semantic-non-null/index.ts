@@ -30,7 +30,7 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
 
     return fieldConfig;
   }
-  // フィールドの解決時にnullチェックを行うことも可能
+  // フィールドの解決時にプラグイン側でnullチェックを行うことも可能
   // override wrapResolve(
   //   resolver: GraphQLFieldResolver<unknown, Types['Context'], object>,
   //   fieldConfig: PothosOutputFieldConfig<Types>
