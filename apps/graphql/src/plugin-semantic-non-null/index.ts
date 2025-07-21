@@ -30,6 +30,26 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
 
     return fieldConfig;
   }
+  // フィールドの解決時にnullチェックを行うことも可能
+  // override wrapResolve(
+  //   resolver: GraphQLFieldResolver<unknown, Types['Context'], object>,
+  //   fieldConfig: PothosOutputFieldConfig<Types>
+  // ): GraphQLFieldResolver<unknown, Types['Context'], object> {
+  //   if (!fieldConfig.pothosOptions.semanticNonNull) {
+  //     return resolver;
+  //   }
+
+  //   return async (parent, args, context, info) => {
+  //     const result = await resolver(parent, args, context, info);
+
+  //     if (result === null || result === undefined) {
+  //       throw new Error(
+  //         `Field "${info.fieldName}" is non-nullable but received null or undefined.`)
+  //     }
+
+  //     return result;
+  //   };
+  // }
 
   // semanticNonNull: trueなどの場合はデフォルト値を設定できるようにargsの変換関数を用意
   private transformDirective(args: SemanticNonNullArgs) {
