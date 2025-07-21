@@ -32,11 +32,11 @@ export class SemanticNonNullPlugin<Types extends SchemaTypes> extends BasePlugin
   }
 
   // semanticNonNull: trueなどの場合はデフォルト値を設定できるようにargsの変換関数を用意
-  private transformDirective = (args: SemanticNonNullArgs) => {
+  private transformDirective(args: SemanticNonNullArgs) {
     if (typeof args === 'boolean') return { name, args: {} };
 
     return { name, args };
-  };
+  }
 }
 
 SchemaBuilder.registerPlugin(name, SemanticNonNullPlugin);
